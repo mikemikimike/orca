@@ -26,6 +26,8 @@ export type TuiAgentConfig = {
   /** Detection runtimes where this launch mode is not available as a detected agent. */
   detectUnsupportedRuntimes?: readonly TuiAgentDetectionRuntime[]
   launchCmd: string
+  /** Optional Agent Client Protocol entry point for agents that expose one. */
+  acpLaunchCmd?: string
   /** Platform-specific launch command when the public binary name differs. */
   launchCmdByPlatform?: Partial<Record<NodeJS.Platform, string>>
   expectedProcess: string
@@ -284,6 +286,16 @@ const TUI_AGENT_CONFIG_SOURCE: Record<TuiAgent, TuiAgentConfigSource> = {
   devin: {
     detectCmd: 'devin',
     // Why: `devin -- <prompt>` auto-submits immediately (docs.devin.ai/cli), so start the REPL with no argv prompt.
+    promptInjectionMode: 'stdin-after-start'
+  },
+  openinterpreter: {
+    // Why: OpenInterpreter's documented terminal entry point is the generic
+    // `interpreter` binary. Keep it last in auto-pick order to avoid claiming
+    // an unrelated executable with the same name.
+    detectCmd: 'interpreter',
+    launchCmd: 'interpreter',
+    acpLaunchCmd: 'interpreter acp',
+    expectedProcess: 'interpreter',
     promptInjectionMode: 'stdin-after-start'
   }
 }
