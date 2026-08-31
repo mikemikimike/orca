@@ -717,8 +717,7 @@ describe('tui agent startup plans', () => {
     expect(resolveTuiAgentLaunchArgs('devin', null)).toBe('--permission-mode bypass')
   })
 
-  it('exposes OpenInterpreter terminal and ACP launch points', () => {
+  it('exposes the OpenInterpreter terminal launch point', () => {
     expect(TUI_AGENT_CONFIG.openinterpreter.launchCmd).toBe('interpreter')
-    expect(TUI_AGENT_CONFIG.openinterpreter.acpLaunchCmd).toBe('interpreter acp')
   })
 })

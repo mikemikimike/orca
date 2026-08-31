@@ -26,8 +26,6 @@ export type TuiAgentConfig = {
   /** Detection runtimes where this launch mode is not available as a detected agent. */
   detectUnsupportedRuntimes?: readonly TuiAgentDetectionRuntime[]
   launchCmd: string
-  /** Optional Agent Client Protocol entry point for agents that expose one. */
-  acpLaunchCmd?: string
   /** Platform-specific launch command when the public binary name differs. */
   launchCmdByPlatform?: Partial<Record<NodeJS.Platform, string>>
   expectedProcess: string
@@ -294,7 +292,6 @@ const TUI_AGENT_CONFIG_SOURCE: Record<TuiAgent, TuiAgentConfigSource> = {
     // an unrelated executable with the same name.
     detectCmd: 'interpreter',
     launchCmd: 'interpreter',
-    acpLaunchCmd: 'interpreter acp',
     expectedProcess: 'interpreter',
     promptInjectionMode: 'stdin-after-start'
   }
